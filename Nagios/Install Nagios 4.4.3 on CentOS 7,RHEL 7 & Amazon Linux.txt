@@ -1,35 +1,35 @@
 How To Install Nagios 4.4.3 on CentOS 7,RHEL 7 & Amazon Linux
 =================================================
 
-Nagios is the most widely used open source monitoring tools which help us to monitor the services and application that run’s on Windows, Linux, Routers and other network devices.
+Nagios is the most widely used open source monitoring tools which help us to monitor the services and application that runâ€™s on Windows, Linux, Routers and other network devices.
 With the help of Nagios, you can monitor basic services and attributes. We can access the Nagios using web interface coming with the bundle and configuration need to be done on the file level.
 Services List
 This Tutorial describes how you can monitor private services and attributes of Linux/UNIX servers, such as:
 
 Attributes
 =============
-•	CPU load
-•	Memory usage
-•	Disk usage
-•	Logged in users
-•	Running processes
-•	etc.
+â€¢	CPU load
+â€¢	Memory usage
+â€¢	Disk usage
+â€¢	Logged in users
+â€¢	Running processes
+â€¢	etc.
 
 Private Services
 ============
-•	HTTP
-•	FTP
-•	SSH
-•	SMTP
-•	Etc
+â€¢	HTTP
+â€¢	FTP
+â€¢	SSH
+â€¢	SMTP
+â€¢	Etc
 
 Provide Security Group
 =================
-•	HTTP  80
-•	SSH   22
-•	SMTP  25
-•	ICMP IPV4 0-65536 (for ping)
-•	TCP Custom: 5666 (for nrpe plugin)
+â€¢	HTTP  80
+â€¢	SSH   22
+â€¢	SMTP  25
+â€¢	ICMP IPV4 0-65536 (for ping)
+â€¢	TCP Custom: 5666 (for nrpe plugin)
 
 Prerequisites
 ============
@@ -46,7 +46,7 @@ Install Nagios Server
 =================
 Download the latest version of Nagios Core using the terminal.
 	cd /tmp/
-wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
+	wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
 	tar -zxvf nagios-4.4.3.tar.gz
 	cd /tmp/nagios-4.4.3
 
@@ -65,7 +65,7 @@ Install the Nagios web configuration using the following command.
 	make install-webconf
 Run the following command to install a Nagios exfoliation theme
 	make install-exfoliation
-Create a user account (nagiosadmin) for logging into the Nagios web interface. Remember the password that you assign to this user – you’ll need it later.
+Create a user account (nagiosadmin) for logging into the Nagios web interface. Remember the password that you assign to this user â€“ youâ€™ll need it later.
 	htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 Restart Apache web server to make the new settings take effect.
 
@@ -76,8 +76,8 @@ Restart Apache web server to make the new settings take effect.
 
 Configure Nagios Server
 =======================
-Sample configuration files have now been installed in the /usr/local/nagios/etc directory. These sample files should work fine for getting started with Nagios. You’ll need to make just one change before you proceed.
-Edit the /usr/local/nagios/etc/objects/contacts.cfg config file with your favorite editor and change the email address associated with the nagiosadmin contact definition to the address you’d like to use for receiving alerts.
+Sample configuration files have now been installed in the /usr/local/nagios/etc directory. These sample files should work fine for getting started with Nagios. Youâ€™ll need to make just one change before you proceed.
+Edit the /usr/local/nagios/etc/objects/contacts.cfg config file with your favorite editor and change the email address associated with the nagiosadmin contact definition to the address youâ€™d like to use for receiving alerts.
 vi /usr/local/nagios/etc/objects/contacts.cfg
 Change the Email address field to receive the notification.
 define contact{
@@ -150,7 +150,7 @@ Start Nagios on system startup.
 
 Access Nagios Web Interface
 =====================
-Now access the Nagios web interface using the following URL. You’ll be prompted for the username (nagiosadmin) and password you specified earlier.
+Now access the Nagios web interface using the following URL. Youâ€™ll be prompted for the username (nagiosadmin) and password you specified earlier.
 http://Nagios-server public-ip-add-re-ss/nagios/
 
 Click on Hosts in the left pane to get a list of systems being monitored by Nagios. We have not added any host to Nagios, So it simply monitors the localhost itself.
