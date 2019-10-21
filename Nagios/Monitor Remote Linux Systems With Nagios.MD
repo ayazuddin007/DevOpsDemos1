@@ -76,7 +76,7 @@ Create a configuration directory.
 
 Configure Nagios Server
 =======================
-Now it’s time to configure the Nagios server to monitor the remote client machine, and You’ll need to create a command definition in Nagios object configuration file to use the check_nrpe plugin. Open the commands.cfg file.
+Now itâ€™s time to configure the Nagios server to monitor the remote client machine, and Youâ€™ll need to create a command definition in Nagios object configuration file to use the check_nrpe plugin. Open the commands.cfg file.
 	vi /usr/local/nagios/etc/objects/commands.cfg
 Add the following Nagios command definition to the file.
 ### CentOS 7 / RHEL 7 ###
@@ -92,7 +92,7 @@ Add a Linux host to Nagios server
 Create a client configuration file /usr/local/nagios/etc/servers/client.itzgeek.local.cfg to define the host and service definitions of remote Linux host.
 	vi /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
 Copy the below content to the above file.	
-You can also use the following template and modify it according to your requirement. The following template is for monitoring logged in users, system load, disk usage (/ – partitions), swap, and total process.
+You can also use the following template and modify it according to your requirement. The following template is for monitoring logged in users, system load, disk usage (/ â€“ partitions), swap, and total process.
 
 define host{
                            
