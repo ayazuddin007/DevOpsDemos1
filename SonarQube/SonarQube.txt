@@ -3,8 +3,9 @@
 ======================================================
 Prequisite
 -----------------
-- Amazon RHEL 8 t2.small instance
-- Mysql Client with java
+- Amazon EC2 t2.small instance
+- Mysql-server 
+- java
 
 Install new EC2 Amazon Instance
 ----------------------------------------
