@@ -37,7 +37,7 @@ You can visit also for archived copy of maven previous version - Link : https://
    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64
    M2_HOME=/opt/maven/
    M2=$M2_HOME/bin
-   PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2:
+   PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
 
    save the file
    source ~/.bash_profile
@@ -78,8 +78,8 @@ click on "Download now and install after restart"
 
 Test Maven Jobs
 ------------------
-1. Create “new item”
-2. Enter an item name – maven-helloworld
+1. Create â€œnew itemâ€
+2. Enter an item name â€“ maven-helloworld
 	Chose Maven project
 3. Under Source Code Management > choose Git
 	Repository URL : https://github.com/ayazuddin007/hello-world
