@@ -23,19 +23,19 @@ In this case I am using /opt/maven as my installation directory - Link : https:/
 You can visit also for archived copy of maven previous version - Link : https://archive.apache.org/dist/maven/maven-3/
 
 # Creating maven directory under /opt
-  mkdir /opt/maven
-  cd /opt/maven
+  cd /opt/
 
 # downloading maven version 3.6.0
   wget https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
   unzip apache-maven-3.6.0-bin.zip
+  mv apache-maven-3.6.0 maven
   rm -rf apache-maven-3.6.0-bin.zip
 
 # setup M2_HOME and M2 paths in .bash_profile of user and add these to path variable
    vi ~/.bash_profile
 	
    JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-1.el7_6.x86_64
-   M2_HOME=/opt/maven/apache-maven-3.6.0
+   M2_HOME=/opt/maven/
    M2=$M2_HOME/bin
    PATH=$PATH:$JAVA_HOME:$M2_HOME:$M2:$HOME
 
@@ -54,7 +54,7 @@ Install maven plugin without restart
 Configure java path
   Manage Jenkins > Global Tool Configuration > Maven
   Name=Maven
-  MAVEN_HOME=/opt/maven/apache-maven-3.6.0
+  MAVEN_HOME=/opt/maven/
 
 Install Git on Jenkins server
 ----------------------------------
@@ -78,8 +78,8 @@ click on "Download now and install after restart"
 
 Test Maven Jobs
 ------------------
-1. Create â€œnew itemâ€
-2. Enter an item name â€“ maven-helloworld
+1. Create “new item”
+2. Enter an item name – maven-helloworld
 	Chose Maven project
 3. Under Source Code Management > choose Git
 	Repository URL : https://github.com/ayazuddin007/hello-world
