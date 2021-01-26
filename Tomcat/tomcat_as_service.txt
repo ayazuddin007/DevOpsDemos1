@@ -1,0 +1,48 @@
+sudo su -
+useradd tomcat
+groupadd tomcat
+
+Create a systemd unit file
+-----------------------------
+ls /etc/systemd/system/
+
+To run Tomcat as a service we will create a new tomcat.service
+
+vi /etc/systemd/system/tomcat.service
+
+[Unit]
+Description=Apache Tomcat 8.5 Servlet Container
+After=syslog.target network.target
+
+[Service]
+User=root
+Group=root
+Type=forking
+Environment=CATALINA_PID=/opt/tomcat/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+--------------------------------------------------------------
+Reload the systemd daemon, then start the Tomcat service and add the Apache Tomcat service to start at boot time.
+
+systemctl daemon-reload
+systemctl start tomcat
+systemctl enable tomcat
+
+chkconfig tomcat on
+
+systemctl status tomcat
+
+
+systemctl restart tomcat
+
+netstat -plntu
+
+
+
