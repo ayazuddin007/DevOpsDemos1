@@ -26,6 +26,7 @@ You can visit also for archived copy of maven previous version - Link : https://
   cd /opt/
 
 # downloading maven version 3.6.0
+  yum install wget unzip -y
   wget https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
   unzip apache-maven-3.6.0-bin.zip
   mv apache-maven-3.6.0 maven
