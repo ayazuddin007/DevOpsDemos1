@@ -1,9 +1,12 @@
 Monitor Remote Linux Systems With Nagios Monitoring Tool
 =============================================
 
+link: https://www.itzgeek.com/how-tos/linux/centos-how-tos/monitor-remote-linux-system-with-nagios-3.html
+
 NRPE Plugin
 ===============
-Nagios Remote Plugin Executor (abbreviated as NRPE) plugin allows you to monitor applications and services running on remote Linux / Windows hosts. This NRPE Add-on helps Nagios to monitor local resources like CPU, Memory, Disk, Swap, etc. of the remote host.
+Nagios Remote Plugin Executor (abbreviated as NRPE) plugin allows you to monitor applications and services running on remote Linux / Windows hosts. 
+This NRPE Add-on helps Nagios to monitor local resources like CPU, Memory, Disk, Swap, etc. of the remote host.
 
 On Remote Linux System
 ====================
@@ -14,10 +17,11 @@ Install NRPE Add-on & Nagios Plugins
 ===============================
 NRPE and Nagios plugins are not available in the base repository of CentOS 7. So, you need configure EPEL repository on CentOS 7.
 	rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
 Use the following command to install NRPE Add-on and Nagios plugins.
 ### CentOS 7 / RHEL 7 ###
-	yum install -y nrpe nagios-plugins-all
-
+	yum install -y nrpe nagios-plugins-all 
+	
 Configure NRPE Add-on
 =============================
 Modify the NRPE configuration file to accept the connection from the Nagios server, Edit the /etc/nagios/nrpe.cfg file.
@@ -27,7 +31,8 @@ Add the Nagios servers IP address, separated by comma like below.
 
 Configure Nagios Checks
 ===================
-The /etc/nagios/nrpe.cfg file contains the basic commands to check the attributes (CPU, Memory, Disk, etc.architecure) and services (HTTP, FTP, etc.) on remote hosts. Below command lines let you monitor attributes with the help of Nagios plugins.
+The /etc/nagios/nrpe.cfg file contains the basic commands to check the attributes (CPU, Memory, Disk, etc.architecure) and services (HTTP, FTP, etc.) on remote hosts. 
+Below command lines let you monitor attributes with the help of Nagios plugins.
 The path to Nagios plugins may change depends on your operating system architecture (i386 or x86_64).
 CentOS 7 / RHEL 7
 	command[check_users]=/usr/lib64/nagios/plugins/check_users -w 5 -c 10
@@ -44,7 +49,8 @@ Tested on Ubuntu 18.04:
 	/usr/lib/nagios/plugins/check_procs -w 150 -c 200
 Output:
 	PROCS WARNING: 190 processes | procs=190;150;200;0;
-Nagios plugin will count running processes and will warn you when the process count is more than 150, or it will report you critical when the process count is more than 200, and at the same time, the output will state OK if the count is below 150.
+Nagios plugin will count running processes and will warn you when the process count is more than 150, or it will report you critical when the process count is more than 200, 
+and at the same time, the output will state OK if the count is below 150.
 You can adjust the alert level as per your requirements. Change warning to 200 and critical to 250 for testing purpose. Now you can see an OK message.
 	/usr/lib/nagios/plugins/check_procs -w 200 -c 250
 Output:
@@ -56,6 +62,8 @@ Restart the NRPE service.
 ### CentOS 7 / RHEL 7 ###
 	systemctl start nrpe
 	systemctl enable nrpe
+
+	systemctl restart nrpe
 
 On Nagios Server
 =================
@@ -76,7 +84,8 @@ Create a configuration directory.
 
 Configure Nagios Server
 =======================
-Now it’s time to configure the Nagios server to monitor the remote client machine, and You’ll need to create a command definition in Nagios object configuration file to use the check_nrpe plugin. Open the commands.cfg file.
+Now it’s time to configure the Nagios server to monitor the remote client machine, and You’ll need to create a command definition in Nagios object configuration file to use the check_nrpe plugin. 
+Open the commands.cfg file.
 	vi /usr/local/nagios/etc/objects/commands.cfg
 Add the following Nagios command definition to the file.
 ### CentOS 7 / RHEL 7 ###
@@ -90,16 +99,16 @@ command_line /usr/lib64/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -t 30 -c $ARG
 Add a Linux host to Nagios server
 =========================
 Create a client configuration file /usr/local/nagios/etc/servers/client.itzgeek.local.cfg to define the host and service definitions of remote Linux host.
-	vi /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
+	vi /usr/local/nagios/etc/servers/client.cfg
 Copy the below content to the above file.	
 You can also use the following template and modify it according to your requirement. The following template is for monitoring logged in users, system load, disk usage (/ – partitions), swap, and total process.
 
 define host{
                            
             use                     linux-server            
-            host_name               client.itzgeek.local            
-            alias                   client.itzgeek.local            
-            address                 192.168.1.20
+            host_name         client      
+            alias                   client
+            address                 192.168.1.20 #client private ip
                                     
 }                                   
                                     
@@ -107,13 +116,13 @@ define hostgroup{
                                     
             hostgroup_name          linux-server            
             alias                   Linux Servers            
-            members                 client.itzgeek.local
+            members                 client
 }                                   
                                     
 define service{                     
                                     
             use                     local-service            
-            host_name               client.itzgeek.local            
+            host_name               client      
             service_description     SWAP Uasge            
             check_command           check_nrpe!check_swap                          
                                     
@@ -122,7 +131,7 @@ define service{
 define service{                     
                                     
             use                     local-service            
-            host_name               client.itzgeek.local            
+            host_name               client  
             service_description     Root / Partition            
             check_command           check_nrpe!check_root                          
                                     
@@ -131,7 +140,7 @@ define service{
 define service{                     
                                     
             use                     local-service            
-            host_name               client.itzgeek.local            
+            host_name               client          
             service_description     Current Users            
             check_command           check_nrpe!check_users                         
                                     
@@ -140,7 +149,7 @@ define service{
 define service{                     
                                     
             use                     local-service            
-            host_name               client.itzgeek.local            
+            host_name               client
             service_description     Total Processes            
             check_command           check_nrpe!check_total_procs                   
                                     
@@ -149,7 +158,7 @@ define service{
 define service{                     
                                     
             use                     local-service            
-            host_name               client.itzgeek.local            
+            host_name               client   
             service_description     Current Load            
             check_command           check_nrpe!check_load
 
@@ -159,8 +168,11 @@ Replacing a value
 =================
 	sed -i.bak 's/<old-value>/<new-value>/g' <file-path>
 
-	sed -i.bak 's/client.itzgeek.local/ec2-15-206-88-24.ap-south-1.compute.amazonaws.com/g' /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
-	sed -i.bak 's/192.168.1.20/15.206.88.24/g' /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
+	sed -i.bak 's/client.itzgeek.local/client/g' /usr/local/nagios/etc/servers/client.cfg
+	sed -i.bak 's/192.168.1.20/15.206.88.24/g' /usr/local/nagios/etc/servers/client.cfg
+
+	sed -i.bak 's/192.168.1.20/<client-private-ip>/g' /usr/local/nagios/etc/servers/client.cfg
+
 
 Verify Nagios for any errors.
 ========================
@@ -175,8 +187,8 @@ Monitor the remote machine
 Go and check the Nagios web interface to view the new services we added just now.
 Within a minute, you should start seeing status in services page.
 
-Monitor Apache Service
-==================
+Monitor Apache Service on Remote Server
+================================
 
 IN NODE
 --------------
@@ -195,10 +207,10 @@ service=httpd  #mysql,tree,git
 if (( $( ps -ef  | grep -v  grep  |  grep $service  |  grep root |  wc -l ) > 0 ))
 then
 	echo  "$service is running!!!"; 
-	exit 0;
+	exit 1;
 else
-	#echo "need to start $service";
-	exit 2;
+	echo "need to start $service";
+	exit 0;
 fi
 
 paste following in  ps -ef  | grep -v  grep  |  grep $service  |  grep root |  wc -l    in terminal
@@ -232,7 +244,7 @@ IN MASTER
 ---------------
 
 1. Add service for apache
-	 vi /usr/local/nagios/etc/servers/client.itzgeek.local.cfg
+	 vi /usr/local/nagios/etc/servers/client.cfg
 
 define service{
 
@@ -247,7 +259,61 @@ define service{
  	 systemctl restart nagios
 
 3. Refresh the nagios dashboad browser page
-    you will see nagios service is added but in pending state   
+    you will see nagios service is added but in pending state  
+
+
+Custom Apache Test on Client
+--------------------------------
+
+1) apache script
+-------------------
+vi  /usr/lib64/nagios/plugins/check_apache
+----------------------------------------
+#!/bin/bash
+service=httpd  #mysql,tree,git
+if (( $( ps -ef  | grep -v  grep  |  grep $service  |  grep root |  wc -l ) > 0 ))
+then
+	echo  "$service is running!!!"; 
+	exit 0;
+else
+	echo "need to start $service";
+	exit 1;
+fi
+----------------------------------------------------
+save+quit
+
+2) chmod +x /usr/lib64/nagios/plugins/check_apache
+
+3) vi /etc/nagios/nrpe.cfg
+------------------------
+add
+command[check_apache]=/usr/lib64/nagios/plugins/check_apache
+-------------------------------------------------------------------
+save+quit
+
+4) Reload nrpe service
+	systemctl restart nrpe
+
+
+5) Install apache on client
+	yum install httpd -y
+
+6) Run the httpd service
+	service httpd start
+    
+    Run Apache Script
+     	sh /usr/lib64/nagios/plugins/check_apache
+   
+    Give Output "httpd is running"  -->  Same on Nagios Dashboad  --> Ok in Green Colour
+
+7)  Stop the httpd service
+                service httpd stop
+
+     Run Apache Script
+     	sh /usr/lib64/nagios/plugins/check_apache
+   
+     Give Output "need to start httpd" -->   Same on Nagios Dashboad    --> Warning in Yellow Colour
+     
 
 
 
