@@ -15,6 +15,9 @@ Security Group: Mysql-SG
 
 Install MySQL 8.0 from AppStream
 ---------------------------------------
+sudo su -
+sudo hostnamectl set-hostname Mysql
+sudo su -
 subscription-manager repos --list-enabled
 yum -y install @mysql
 
